@@ -1,6 +1,7 @@
 class Adapter {
   constructor() {
-    this.baseURL = `http://localhost:3000/`;
+    // http://localhost:3000/api/v1/animals
+    this.baseURL = `http://localhost:3000/api/v1`;
   }
 
   createAnimal(body) {
@@ -27,6 +28,15 @@ class Adapter {
         Accepts: 'application/json'
       },
       body: JSON.stringify(body)
-    }).then(res => res.json());
+    })
+      .then(this.handleErrors)
+      .then(res => res.json());
+  }
+
+  handleErrors(response) {
+    if (!response.ok) {
+      throw response;
+    }
+    return response;
   }
 }
