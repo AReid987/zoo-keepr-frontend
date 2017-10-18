@@ -1,5 +1,4 @@
 $(function() {
-  console.log('process: ', process.env);
   const $tBody = $('tbody');
   const $form = $('form.ui.form');
   const api = new Api();
@@ -33,13 +32,16 @@ $(function() {
         $tBody.append(animal.render());
       })
       .catch(err => {
-        $form.addClass('error');
-        $form.prepend(`
+        err.json().then(json => {
+          console.log('err: ', err, json);
+          $form.addClass('error');
+          $form.prepend(`
             <div class="ui error message">
-              <div class="header">Your Animal couldn't be saved</div>
-              <p>Two animals of the same species cannot have the same name</p>
+              <div class="header">That Animal could not be saved</div>
+              ${json.errors.map(msg => `<p>${msg}</p>`).join('')}
             </div>
             `);
+        });
       });
   });
 

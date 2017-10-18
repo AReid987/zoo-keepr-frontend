@@ -1,13 +1,10 @@
 class Api {
   fetchAnimals() {
-    return this.get(`https://lit-temple-21098.herokuapp.com/api/v1/animals/`);
+    return this.get(`http://localhost:3000/api/v1animals/`);
   }
 
   createAnimal(data) {
-    return this.post(
-      `https://lit-temple-21098.herokuapp.com/api/v1/animals/`,
-      data
-    );
+    return this.post(`http://localhost:3000/api/v1/animals/`, data);
   }
 
   get(url) {
@@ -29,7 +26,7 @@ class Api {
 
   handleErrors(response) {
     if (!response.ok) {
-      throw Error(response.statusText);
+      throw response;
     }
     return response;
   }
