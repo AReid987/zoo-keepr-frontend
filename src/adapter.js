@@ -1,7 +1,7 @@
 class Adapter {
   constructor() {
     // http://localhost:3000/api/v1/animals
-    this.baseURL = `http://localhost:3000/api/v1`;
+    this.baseURL = `https://arcane-chamber-41391.herokuapp.com/api/v1`;
   }
 
   createAnimal(body) {
@@ -29,7 +29,12 @@ class Adapter {
       },
       body: JSON.stringify(body)
     })
-      .then(this.handleErrors)
+      .then(res => {
+        if (!res.ok) {
+          throw res;
+        }
+        return res;
+      })
       .then(res => res.json());
   }
 

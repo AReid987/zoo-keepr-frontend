@@ -27,14 +27,13 @@ $(function() {
         const newAnimal = new Animal(json);
         $tbody.append(newAnimal.render());
       })
-      .catch(err => {
-        console.log('err: ', err);
-        //       err.json().then(json => {
-        //         $form.append(`<div class="ui error message">
-        //   <div class="header">That Animal could not be saved</div>
-        //   ${json.errors.map(msg => `<p>${msg}</p>`).join('')}
-        // </div>`);
-        //       });
+      .catch(res => {
+        res.json().then(json => {
+          $form.append(`<div class="ui error message">
+          <div class="header">That Animal could not be saved</div>
+          ${json.errors.map(msg => `<p>${msg}</p>`).join('')}
+        </div>`);
+        });
       });
   });
 });
